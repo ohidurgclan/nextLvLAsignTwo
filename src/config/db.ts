@@ -1,7 +1,6 @@
 import { Pool } from "pg";
 import config from ".";
 
-// DB
 export const pool = new Pool({
   connectionString: `${config.connection_str}`,
 });
@@ -14,11 +13,11 @@ const initDB = async()=> {
       email VARCHAR(150) NOT NULL UNIQUE
         CHECK (email = LOWER(email)),
       password TEXT NOT NULL
-        CHECK (char_length(password) >= 8),
+        CHECK (char_length(password) >= 6),
       phone VARCHAR(20) NOT NULL,
-      role VARCHAR(20) NOT NULL
-        CHECK (role IN ('admin', 'customer')),
-      );
+      role VARCHAR(20) NOT NULL DEFAULT 'customer'
+        CHECK (role IN ('admin', 'customer'))
+      )
     `); 
 
   await pool.query(`
@@ -50,7 +49,7 @@ const initDB = async()=> {
           CHECK (total_price > 0),
       status VARCHAR(20) NOT NULL
           CHECK (status IN ('active', 'cancelled', 'returned'))
-        );    
+      )   
     `);
 };
 export default initDB;

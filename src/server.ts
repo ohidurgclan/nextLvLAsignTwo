@@ -1,4 +1,4 @@
-import app from "./app";
+import app from "./app";console.log
 import config from "./config";
 const port = config.port;
 

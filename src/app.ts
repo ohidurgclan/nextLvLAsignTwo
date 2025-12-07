@@ -1,25 +1,23 @@
 import express, { Request, Response } from "express";
 import initDB from "./config/db";
 import { userRouts } from "./modules/user/user.routes";
-import { todoRoutes } from "./modules/todo/todo.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { vehicleRoutes } from "./modules/vehicle/vehicle.routes";
+import { bookingRoutes } from "./modules/booking/booking.routes";
 
 const app = express()
-
-
-// Express Json Parcer
 app.use(express.json());
-// app.use(express.urlencoded()); For Form Data
 
-// initializing DB
 initDB();
+
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hi Developers")
+  res.send("Hellow Next Level Examiner! Welcome To Root Route....")
 });
 
-app.use("/users", userRouts);
-app.use("/todos", todoRoutes);
-app.use("/auth", authRoutes);
+app.use("/api/v1", authRoutes);
+app.use("/api/v1", userRouts);
+app.use("/api/v1", vehicleRoutes);
+app.use("/api/v1", bookingRoutes);
 
 
 //* 404 Not Found Route

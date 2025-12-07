@@ -1,6 +1,22 @@
 import { Request, Response } from "express";
 import { authServices } from "./auth.service";
 
+export const signupUser = async (req: Request, res: Response) => {
+  try {
+    const result = await authServices.signupCustomer(req.body);
+    return res.status(201).json({
+      message: "User Registered Successfully As Customer",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+
+
 const loginUser = async(req:Request, res: Response) => {
     const {email, password} = req.body;
     try {
@@ -18,5 +34,5 @@ const loginUser = async(req:Request, res: Response) => {
     }
 };
 export const authController = {
-    loginUser,
+    loginUser, signupUser
 };
