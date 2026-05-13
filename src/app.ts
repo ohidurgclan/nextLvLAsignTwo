@@ -4,6 +4,7 @@ import { userRouts } from "./modules/user/user.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { vehicleRoutes } from "./modules/vehicle/vehicle.routes";
 import { bookingRoutes } from "./modules/booking/booking.routes";
+import { cronRoutes } from "./modules/corn/cron.route";
 
 const app = express()
 app.use(express.json());
@@ -19,7 +20,7 @@ app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRouts);
 app.use("/api/v1", vehicleRoutes);
 app.use("/api/v1", bookingRoutes);
-
+app.use("/api/v1/cron", cronRoutes);
 
 //* 404 Not Found Route
 app.use((req:Request, res: Response)=>{
