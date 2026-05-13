@@ -18,7 +18,8 @@ const createVehicle = async (req: Request, res: Response) => {
         }
         const result = await vehicleService.addNewVehicle(req.body);
         return res.status(201).json({
-          message: "Vehicle Inserted Successfully",
+            "success": true,
+            "message": "Vehicle created successfully",
             data: result.rows[0]
         });
     } catch (error: any) {
@@ -32,8 +33,8 @@ const createVehicle = async (req: Request, res: Response) => {
 const getVehicles = async (req: Request, res: Response) => {
     try {
         const result = await vehicleService.getAllVehicles();
-
         return res.status(200).json({
+            success:true,
             message: "Vehicles retrieved successfully",
             data: result.rows
         });
@@ -46,7 +47,7 @@ const getVehicles = async (req: Request, res: Response) => {
     }
 };
 
-export const getSingleVehicle = async (req: Request, res: Response) => {
+const getSingleVehicle = async (req: Request, res: Response) => {
     try {
         const vehicleId = Number(req.params.vehicleId);
         const result = await vehicleService.getVehicleById(vehicleId);
@@ -56,7 +57,8 @@ export const getSingleVehicle = async (req: Request, res: Response) => {
             });
         }
         return res.status(200).json({
-            message: "Vehicle details Got",
+            success: true,
+            message: "Vehicle retrieved successfully",
             data: result.rows[0],
         });
     } catch (error: any) {
@@ -84,6 +86,7 @@ const updateVehicle = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Vehicle not found" });
         }
         return res.status(200).json({
+            success: true,
             message: "Vehicle updated successfully",
             data: result.rows[0]
         });
@@ -92,7 +95,7 @@ const updateVehicle = async (req: Request, res: Response) => {
     }
 };
 
-export const deleteVehicle = async (req: Request, res: Response) => {
+const deleteVehicle = async (req: Request, res: Response) => {
     try {
         const vehicleId = Number(req.params.vehicleId);
         const activeBooking = await vehicleService.checkActive(vehicleId);
@@ -105,7 +108,10 @@ export const deleteVehicle = async (req: Request, res: Response) => {
         if (result.rowCount === 0) {
             return res.status(404).json({ message: "Vehicle not found" });
         }
-        return res.status(200).json({ message: "Vehicle Deleted successfully" });
+        return res.status(200).json({ 
+            success: true,
+            message: "Vehicle Deleted successfully" 
+        });
     } catch (error: any) {
         console.error(error);
         return res.status(500).json({ message: error.message });

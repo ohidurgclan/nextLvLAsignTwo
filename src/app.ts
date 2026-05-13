@@ -14,6 +14,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hellow Next Level Examiner! Welcome To Root Route....")
 });
 
+
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRouts);
 app.use("/api/v1", vehicleRoutes);
